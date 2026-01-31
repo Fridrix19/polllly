@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Работа 3 - Полина Бурмистрова</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="work-styles.css">
+</head>
+<body>
+    <div class="custom-cursor"></div>
+    <div class="custom-cursor-dot"></div>
+    <script>
+        const cursor = document.querySelector('.custom-cursor');
+        const cursorDot = document.querySelector('.custom-cursor-dot');
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+        
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+        
+        function animateCursor() {
+            cursorX += (mouseX - cursorX) * 0.1;
+            cursorY += (mouseY - cursorY) * 0.1;
+            
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            
+            cursorDot.style.left = mouseX + 'px';
+            cursorDot.style.top = mouseY + 'px';
+            
+            requestAnimationFrame(animateCursor);
+        }
+        
+        animateCursor();
+        
+        document.querySelectorAll('a, button, .nav-link, .nav-btn').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.width = '40px';
+                cursor.style.height = '40px';
+                cursor.style.borderColor = '#ff6b35';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.width = '20px';
+                cursor.style.height = '20px';
+                cursor.style.borderColor = '#ff6b35';
+            });
+        });
+    </script>
+
+    <!-- Шапка -->
+    <header class="main-header">
+        <div class="header-container">
+            <a href="index.html" class="logo" style="text-decoration: none;">
+                <img src="logo.png" alt="Logo" class="logo-image">
+            </a>
+        </div>
+    </header>
+
+    <!-- Хлебная крошка -->
+    <div class="breadcrumb">
+        <a href="index.html" class="breadcrumb-link">← Назад</a>
+    </div>
+
+    <!-- Контент работы -->
+    <div class="work-page">
+        <div class="work-page-container">
+            <h1 class="work-page-title">Работа 3</h1>
+            
+            <!-- Описание бэкграунда -->
+            <div class="work-background">
+                <h2 class="work-section-title">Бэкграунд проекта</h2>
+                <p class="work-text">
+                    Описание проекта, который демонстрирует мои навыки в дизайне интерфейсов и создании пользовательского опыта. Этот проект был создан с целью решения конкретных бизнес-задач и улучшения взаимодействия пользователей с продуктом.
+                </p>
+                <p class="work-text">
+                    В процессе работы над проектом я провела глубокий анализ целевой аудитории, изучила их потребности и поведение. На основе проведенного исследования были созданы wireframes и прототипы, которые затем превратились в финальный дизайн интерфейса.
+                </p>
+                <p class="work-text">
+                    Проект включает в себя разработку дизайн-системы, создание адаптивных макетов для различных устройств и обеспечение интуитивного пользовательского опыта на всех этапах взаимодействия с продуктом.
+                </p>
+            </div>
+
+            <!-- Слайдер с фото -->
+            <div class="work-slider">
+                <h2 class="work-section-title">Галерея проекта</h2>
+                <div class="slider-container">
+                    <div class="slider-wrapper">
+                        <div class="slide active">
+                            <div class="slide-image-placeholder"></div>
+                        </div>
+                        <div class="slide">
+                            <div class="slide-image-placeholder"></div>
+                        </div>
+                        <div class="slide">
+                            <div class="slide-image-placeholder"></div>
+                        </div>
+                    </div>
+                    <button class="slider-btn prev" onclick="changeSlide(-1)">‹</button>
+                    <button class="slider-btn next" onclick="changeSlide(1)">›</button>
+                    <div class="slider-dots">
+                        <span class="dot active" onclick="currentSlide(1)"></span>
+                        <span class="dot" onclick="currentSlide(2)"></span>
+                        <span class="dot" onclick="currentSlide(3)"></span>
+                    </div>
+                </div>
+                <div class="slider-info">
+                    <p class="slider-info-text">Используйте стрелки для навигации по галерее проекта</p>
+                    <div class="slider-nav-links">
+                        <a href="#" class="slider-nav-link">Figma</a>
+                        <a href="#" class="slider-nav-link">Behance</a>
+                        <a href="#" class="slider-nav-link">Детали проекта</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+
+        function showSlide(index) {
+            if (index >= slides.length) currentSlideIndex = 0;
+            if (index < 0) currentSlideIndex = slides.length - 1;
+            
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            slides[currentSlideIndex].classList.add('active');
+            dots[currentSlideIndex].classList.add('active');
+        }
+
+        function changeSlide(direction) {
+            currentSlideIndex += direction;
+            showSlide(currentSlideIndex);
+        }
+
+        function currentSlide(index) {
+            currentSlideIndex = index - 1;
+            showSlide(currentSlideIndex);
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портфолио - Полина Бурмистрова</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="custom-cursor"></div>
+    <div class="custom-cursor-dot"></div>
+    <script>
+        const cursor = document.querySelector('.custom-cursor');
+        const cursorDot = document.querySelector('.custom-cursor-dot');
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+        
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+        
+        function animateCursor() {
+            cursorX += (mouseX - cursorX) * 0.1;
+            cursorY += (mouseY - cursorY) * 0.1;
+            
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            
+            cursorDot.style.left = mouseX + 'px';
+            cursorDot.style.top = mouseY + 'px';
+            
+            requestAnimationFrame(animateCursor);
+        }
+        
+        animateCursor();
+        
+        document.querySelectorAll('a, button, .nav-link, .nav-btn').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.width = '40px';
+                cursor.style.height = '40px';
+                cursor.style.borderColor = '#3E2723';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.width = '20px';
+                cursor.style.height = '20px';
+                cursor.style.borderColor = '#3E2723';
+            });
+        });
+    </script>
+    <script>
+        // Активное состояние нижнего меню при скролле (только для мобилки)
+        const sections = document.querySelectorAll('section[id]');
+        const bottomNavLinks = document.querySelectorAll('.bottom-nav-link');
+        
+        function updateActiveNav() {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            bottomNavLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', updateActiveNav);
+        updateActiveNav();
+    </script>
+    <!-- Шапка -->
+    <header class="main-header">
+        <div class="header-container">
+            <a href="#home" class="logo" style="text-decoration: none;">
+                <img src="logo.png" alt="Logo" class="logo-image">
+            </a>
+            <nav class="header-nav">
+                <a href="#home" class="nav-link">Главная</a>
+                <a href="#about" class="nav-link">О себе</a>
+                <a href="#skills" class="nav-link">Навыки</a>
+                <a href="#works" class="nav-link">Работы</a>
+                <a href="#contacts" class="nav-link">Контакты</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Нижнее меню (только для мобилки) -->
+    <nav class="bottom-nav">
+        <div class="bottom-nav-container">
+            <a href="#about" class="bottom-nav-link">
+                <span class="nav-icon">👤</span>
+                <span class="nav-label">О себе</span>
+            </a>
+            <a href="#skills" class="bottom-nav-link">
+                <span class="nav-icon">💼</span>
+                <span class="nav-label">Навыки</span>
+            </a>
+            <a href="#works" class="bottom-nav-link">
+                <span class="nav-icon">🎨</span>
+                <span class="nav-label">Работы</span>
+            </a>
+            <a href="#contacts" class="bottom-nav-link">
+                <span class="nav-icon">📧</span>
+                <span class="nav-label">Контакты</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Секция 1: Обложка -->
+    <section id="home" class="cover-section">
+        <div class="cover-content">
+            <div class="cover-role">Я UX‑дизайнер</div>
+            <h1 class="cover-title">
+                <span class="title-line">КРЕАТИВНОЕ</span>
+                <span class="title-line">ПОРТФОЛИО</span>
+            </h1>
+            <div class="name-overlay">Полина Бурмистрова</div>
+        </div>
+        <div class="navigation-buttons">
+            <button class="nav-btn">Дизайн Сайтов</button>
+            <button class="nav-btn">Веб-Приложения</button>
+            <button class="nav-btn">UI/UX Дизайн</button>
+            <button class="nav-btn">Визуальный Дизайн</button>
+            <button class="nav-btn">Анализ ЦА</button>
+        </div>
+    </section>
+
+    <!-- Секция 2: О себе -->
+    <section id="about" class="about-section">
+        <div class="about-content">
+            <div class="about-text">
+                <h2 class="section-title">ПРИВЕТ</h2>
+                <p class="section-description">
+                    Я UI/UX дизайнер, специализируюсь на создании интуитивных и функциональных интерфейсов для сайтов и веб-приложений. Моя работа начинается с глубокого анализа целевой аудитории, исследования их потребностей и поведения.
+                </p>
+                <p class="section-description">
+                    Я создаю дизайн сайтов и веб-приложений, провожу анализ целевой аудитории, изучаю потребности пользователей и проектирую интерфейсы, которые делают взаимодействие простым, приятным и результативным. Каждый проект для меня — это возможность создать что-то, что действительно работает и приносит пользу.
+                </p>
+            </div>
+            <div class="image-placeholder about-image">
+                <!-- Серый квадрат вместо фото -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция 3: Навыки -->
+    <section id="skills" class="education-section">
+        <div class="education-content">
+            <div class="image-placeholder education-image">
+                <!-- Серый квадрат вместо фото -->
+            </div>
+            <div class="education-text">
+                <h2 class="section-title">ЧТО Я ДЕЛАЮ?</h2>
+                <p class="section-description">
+                    Я создаю цифровые продукты, которые помогают бизнесу расти и развиваться. Моя работа охватывает весь цикл разработки дизайна — от исследования до финальной реализации.
+                </p>
+                <div class="education-entry">
+                    <h3 class="education-title">Дизайн сайтов и веб-приложений</h3>
+                    <p class="education-description">
+                        Создание современных, адаптивных интерфейсов для сайтов и веб-приложений. Разработка дизайн-систем, прототипирование и создание интерактивных макетов, которые обеспечивают отличный пользовательский опыт на всех устройствах. От концепции до финальной реализации.
+                    </p>
+                </div>
+                <div class="education-entry">
+                    <h3 class="education-title">UI/UX дизайн</h3>
+                    <p class="education-description">
+                        Разработка интуитивных интерфейсов с фокусом на удобство использования и визуальную привлекательность. Создание пользовательских сценариев, wireframes и прототипов, которые решают конкретные бизнес-задачи и обеспечивают отличный пользовательский опыт.
+                    </p>
+                </div>
+                <div class="education-entry">
+                    <h3 class="education-title">Анализ целевой аудитории и потребностей</h3>
+                    <p class="education-description">
+                        Проведение глубокого анализа целевой аудитории, исследование потребностей пользователей, их поведения и мотивации. Изучение конкурентов и рынка для создания решений, которые не только красивы, но и эффективно решают бизнес-задачи.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция 4: Работы -->
+    <section id="works" class="works-section">
+        <div class="works-container">
+            <h2 class="section-title">МОИ РАБОТЫ</h2>
+            <div class="works-grid">
+                <a href="work-1.html" class="work-card">
+                    <div class="work-image-placeholder">
+                        <!-- Серый квадрат вместо фото -->
+                    </div>
+                    <div class="work-info">
+                        <h3 class="work-title">Работа 1</h3>
+                        <p class="work-description">Описание проекта, который демонстрирует мои навыки в дизайне интерфейсов и создании пользовательского опыта.</p>
+                    </div>
+                </a>
+                <a href="work-2.html" class="work-card">
+                    <div class="work-image-placeholder">
+                        <!-- Серый квадрат вместо фото -->
+                    </div>
+                    <div class="work-info">
+                        <h3 class="work-title">Работа 2</h3>
+                        <p class="work-description">Описание проекта, который демонстрирует мои навыки в дизайне интерфейсов и создании пользовательского опыта.</p>
+                    </div>
+                </a>
+                <a href="work-3.html" class="work-card">
+                    <div class="work-image-placeholder">
+                        <!-- Серый квадрат вместо фото -->
+                    </div>
+                    <div class="work-info">
+                        <h3 class="work-title">Работа 3</h3>
+                        <p class="work-description">Описание проекта, который демонстрирует мои навыки в дизайне интерфейсов и создании пользовательского опыта.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer id="contacts" class="main-footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">Свяжитесь со мной</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-details">
+                                <span class="contact-label">Email</span>
+                                <a href="mailto:polina@example.com" class="contact-link">polina@example.com</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-details">
+                                <span class="contact-label">Телефон</span>
+                                <a href="tel:+79001234567" class="contact-link">+7 (900) 123-45-67</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-title">О портфолио</h3>
+                    <p class="footer-description">UI/UX дизайнер, специалист по дизайну сайтов и веб-приложений. Провожу анализ целевой аудитории и создаю интерфейсы, которые решают бизнес-задачи.</p>
+                    <div class="footer-skills">
+                        <span class="skill-tag">Дизайн сайтов</span>
+                        <span class="skill-tag">Веб-приложения</span>
+                        <span class="skill-tag">UI/UX Дизайн</span>
+                        <span class="skill-tag">Визуальный Дизайн</span>
+                        <span class="skill-tag">Анализ ЦА</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2026. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
